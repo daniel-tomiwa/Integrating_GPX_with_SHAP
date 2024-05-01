@@ -116,7 +116,7 @@ class Gpx:
                 self.gp_model.fit(self.x_around, self.y_around)
 
             elif self.problem == 'classification' and len(self.labels) == 2:
-                self.gp_model.fit(self.x_around, self.y_around[:, 0].reshape(-1))
+                self.gp_model.fit(self.x_around, self.y_around.reshape(-1))
 
             elif len(self.labels) > 2:
                 threshold = 1/len(self.labels)
@@ -298,7 +298,7 @@ class Gpx:
 
             max = np.max(self.y_train)
             min = np.min(self.y_train)
-            y = tuple(max if x <= .5 else min for x in y_proba[:, 0])
+            y = tuple(max if x <= .5 else min for x in y_proba)
             return np.array(y)
 
         else:

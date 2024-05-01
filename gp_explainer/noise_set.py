@@ -2,6 +2,7 @@ import numpy as np
 from scipy.spatial import distance
 from gp_explainer.utils import Utils
 import logging
+import xgboost as xgb
 
 
 # format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
@@ -62,7 +63,8 @@ class NoiseSet:
 
         d = len(instance)
         x_created = np.random.normal(instance, scale=self.xpr.x_train_measure, size=(self.xpr.num_samples, d))
-        y_created = self.xpr.predict(x_created)
+
+        y_created = self.xpr.predict(xgb.DMatrix(x_created))
 
         return x_created, y_created
 
